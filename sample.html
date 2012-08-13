@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>.loaded() &#8211; jQuery Plugin</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+		#container { padding: 15px; border: 2px dashed #999; }
+	</style>
+	<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+	<script src="jquery.loaded.js"></script>
+	<script type="text/javascript">
+		(function ($) {
+			$(window).load(function() {
+				// loaded.html won't work from local file system
+				$('#container').load('loaded.html', function() {
+					$(window).load(function() {
+						alert('this will not fire');
+					});
+					$('#container').loaded(function() {
+						alert('this will fire after all onload supported tags are loaded');
+					});
+					$('#container').loaded({ tags: ['iframe'], callback: function () {
+						alert('this will not fire, because there are no iframe tags');
+						}
+					});
+					$('#container').loaded({ tags: ['img'], callback: function () {
+							alert('this will fire after all img tags are loaded');
+						}
+					});
+				});
+			});
+		})(jQuery);
+	</script>
+</head>
+<body>
+	<div id="container"></div>
+</body>
