@@ -29,8 +29,9 @@
 
         items.each(function () {
 			$this = $(this);
-			if ($.inArray(this.tagName, settings.load) >= 0) { $this.load(callback); }
-			if ($.inArray(this.tagName, settings.error) >= 0) { $this.error(callback); }
+			var tagName = this.tagName.toLowerCase();
+            if ($.inArray(tagName, settings.load) >= 0) { $this.load(callback); }
+            if ($.inArray(tagName, settings.error) >= 0) { $this.error(callback); }
         });
     };
 })(jQuery);
